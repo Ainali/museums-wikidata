@@ -1,8 +1,6 @@
-# museums-wikidata
-Swedish museums on Wikidata shown on a Leaflet map.
+# nature_reserves-wikidata
+Swedish nature reserves on Wikidata shown on a Leaflet map.
 
-Wikidata query: http://tinyurl.com/hcz542r
+Wikidata query: http://tinyurl.com/jhlcl9z
 
-Todo: add city search, show museum categories, show museums without geodata.
-
-Live map here: http://aron.ambrosiani.se/museums/
+Live map here: http://y2s.se/naturreservat/
