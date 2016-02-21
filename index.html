@@ -70,7 +70,7 @@ generateMarkers();
 
 function generateMarkers() { 
 $.getJSON('countries.json', function(countries) {
-$.getJSON('https://query.wikidata.org/bigdata/namespace/wdq/sparql?query=PREFIX+wd%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0D%0APREFIX+wdt%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0D%0APREFIX+wikibase%3A+%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0D%0APREFIX+p%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2F%3E%0D%0APREFIX+v%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fstatement%2F%3E%0D%0APREFIX+q%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fqualifier%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0D%0A%0D%0ASELECT+%3Freservat+%3FreservatLabel+%3FtypLabel+%3Fcoord+%3Fweb+%3Fvisitors%0D%0AWHERE+%7B%0D%0A++%3Freservat+wdt%3AP17+wd%3A' + countries[country] + '+.%0D%0A++%3Freservat+wdt%3AP31+%3Ftyp+.%0D%0A++%3Ftyp+(wdt%3AP279)*+wd%3AQ179049+.%0D%0A++OPTIONAL+%7B%0D%0A+++++%3Freservat+wdt%3AP625+%3Fcoord+.%0D%0A++%7D%0D%0A++OPTIONAL+%7B%0D%0A+++++%3Freservat+wdt%3AP856+%3Fweb+.%0D%0A++%7D%0D%0A++OPTIONAL+%7B%0D%0A+++++%3Freservat+wdt%3AP1174+%3Fvisitors+.%0D%0A++%7D%0D%0A++SERVICE+wikibase%3Alabel+%7B%0D%0A++++bd%3AserviceParam+wikibase%3Alanguage+%22sv%2Cit%2Cen%22+.%0D%0A++%7D%0D%0A%7D&format=json', function (museer) {
+$.getJSON('https://query.wikidata.org/bigdata/namespace/wdq/sparql?query=PREFIX+wd%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fentity%2F%3E%0D%0APREFIX+wdt%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fdirect%2F%3E%0D%0APREFIX+wikibase%3A+%3Chttp%3A%2F%2Fwikiba.se%2Fontology%23%3E%0D%0APREFIX+p%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2F%3E%0D%0APREFIX+v%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fstatement%2F%3E%0D%0APREFIX+q%3A+%3Chttp%3A%2F%2Fwww.wikidata.org%2Fprop%2Fqualifier%2F%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+schema%3A+%3Chttp%3A%2F%2Fschema.org%2F%3E%0D%0A%0D%0ASELECT+%3Freservat+%3FreservatLabel+%3FtypLabel+%3Fcoord+%3Fweb+%3Fvisitors%0D%0AWHERE+%7B%0D%0A++%3Freservat+wdt%3AP17+wd%3A' + countries[country] + '+.%0D%0A++%3Freservat+wdt%3AP31+%3Ftyp+.%0D%0A++%7B+%3Ftyp+(wdt%3AP279)*+wd%3AQ179049+.+%7D+UNION+%7B+%3Freservat+wdt%3AP814+%3Fdummy1+.+%7D+%0D%0A++OPTIONAL+%7B%0D%0A+++++%3Freservat+wdt%3AP625+%3Fcoord+.%0D%0A++%7D%0D%0A++OPTIONAL+%7B%0D%0A+++++%3Freservat+wdt%3AP856+%3Fweb+.%0D%0A++%7D%0D%0A++OPTIONAL+%7B%0D%0A+++++%3Freservat+wdt%3AP1174+%3Fvisitors+.%0D%0A++%7D%0D%0A++SERVICE+wikibase%3Alabel+%7B%0D%0A++++bd%3AserviceParam+wikibase%3Alanguage+%22sv%2Cen%2Cnl%22+.%0D%0A++%7D%0D%0A%7D&format=json', function (museer) {
 
 	for (var i = 0; i < museer.results.bindings.length; i++) {
 		var colorCount = 0;
@@ -79,8 +79,8 @@ $.getJSON('https://query.wikidata.org/bigdata/namespace/wdq/sparql?query=PREFIX+
 		museumStats["totalCount"]++;
 		if (museer.results.bindings[i].web) {
 			if( museer.results.bindings[i].web.type == 'uri' ) {
-                	museumStats["websiteCount"]++;
-                	colorCount++;
+                museumStats["websiteCount"]++;
+                colorCount++;
 			    popupContent += '<br/>Web: <a href="' + museer.results.bindings[i].web.value + '" target="_blank">' + museer.results.bindings[i].web.value + '</a>';
 			}
 			if( museer.results.bindings[i].web.type == 'bnode' ) {
@@ -88,10 +88,10 @@ $.getJSON('https://query.wikidata.org/bigdata/namespace/wdq/sparql?query=PREFIX+
 			}
 		}
 		if (museer.results.bindings[i].visitors) {
-        		 if( museer.results.bindings[i].visitors.type == 'literal' ) {
-        		 museumStats["visitorsCount"]++;
-        		 colorCount++;
-        		 popupContent += '<br/>Visits: ' + museer.results.bindings[i].visitors.value;
+            if( museer.results.bindings[i].visitors.type == 'literal' ) {
+                museumStats["visitorsCount"]++;
+                colorCount++;
+                popupContent += '<br/>Visits: ' + museer.results.bindings[i].visitors.value;
 			}
 			if( museer.results.bindings[i].visitors.type == 'bnode' ) {
 				popupContent += '<br/>Visits: unknown value';
